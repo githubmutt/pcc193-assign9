@@ -28,13 +28,11 @@ class Contact {
 
 
 function debug(text){
-
     console.log( text )
-    document.getElementById("log").innerHTML += text + "<br>"
-   // log.textContext += text
+    //document.getElementById("log").innerHTML += text + "<br>"
   
   }
-// 
+
 
   /** 
  * Function Name: formSubmitted()
@@ -45,10 +43,9 @@ function debug(text){
 */
 function formSubmitted(evt ) {
     // YOUR CODE HERE - FROM YOUR PREVIOUS ASSIGNMENT
-    console.log("event object <*************************************")
-    console.log( evt )
-    // console.log( evt.preventDefault )
-    console.log("event object <*************************************")
+    
+//   console.log( evt )
+//   console.log( evt.preventDefault )
 
     let nameTag = document.getElementById("name")
     let emailTag = document.getElementById("email")
@@ -62,13 +59,10 @@ function formSubmitted(evt ) {
     if( !pattern.test(emailTag.value)){
 
         return false
-//        return true
-      
+
       
     }
 
-
-    debug("formSubmitted:" + nameTag.value + " - " + emailTag.value)
 
     // add Contact
     abm.add( new Contact(nameTag.value , emailTag.value)  )
@@ -82,8 +76,6 @@ function formSubmitted(evt ) {
   
     // RETURN false to prevent refresh
     return false
-//    return true
-
 
 }
   /** 
@@ -97,9 +89,8 @@ function formSubmitted(evt ) {
     // sets length to 0 which empties the array
     abm.empty()
     
-     // display again
-     abm.displayContactTable("contracts")
-    
+    // display again
+    abm.displayContactTable("contacts")
 
   }
   /** 
@@ -123,10 +114,7 @@ function formSubmitted(evt ) {
   function saveList() {
     // YOUR CODE HERE
 
-    console.log( JSON.stringify( abm.listOfContacts ) )    
-
     localStorage.setItem("contacts" , JSON.stringify(abm.listOfContacts)  )
-    
 
   }
   /** 
@@ -138,6 +126,8 @@ function formSubmitted(evt ) {
   function loadList() {
     // YOUR CODE HERE
 
+    abm.load()
+/*
     let contacts = localStorage.getItem("contacts") 
 
     console.log("loading contacts")
@@ -148,7 +138,7 @@ function formSubmitted(evt ) {
     
     abm.listOfContacts = db
     abm.displayContactTable("contacts")
-     
+    */ 
 
   }
   /** 
@@ -173,9 +163,7 @@ function formSubmitted(evt ) {
       // YOUR CODE HERE - FROM YOUR PREVIOUS ASSIGNMENT
       this.listOfContacts.length = 0
       debug("listofContacts.length = " + this.listOfContacts.length )
-
-  //  localStorange.removeItem("contacts")
-
+  
     }
     /** 
      * Method Name: add(contact)
@@ -188,13 +176,9 @@ function formSubmitted(evt ) {
       abm.listOfContacts.push( contact )
   
       let row = "<tr><td>" + contact.name + "N</td<td>" + contact.email + "</td></tr>"
-      debug("ROW:" + row)
-      debug("length" + abm.listOfContacts.length)
-   
+
        for(let v of abm.listOfContacts)
             debug( v.name + " " + v.email )
-
-
 
     }
     /** 
@@ -251,6 +235,18 @@ function formSubmitted(evt ) {
      */
     load() {
       // YOUR CODE HERE
+
+      let contacts = localStorage.getItem("contacts") 
+
+      console.log("loading contacts")
+      console.log( contacts )
+      
+      let db = JSON.parse( contacts )
+      console.log( db )
+
+      this.listOfContacts = db
+      this.displayContactTable("contacts")
+
     }
     /**
      * Method name: save()
