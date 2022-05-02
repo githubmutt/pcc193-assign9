@@ -243,8 +243,15 @@ function formSubmitted(evt ) {
       
       let db = JSON.parse( contacts )
       console.log( db )
+      console.log( db.length )
 
-      this.listOfContacts = db
+      // Only load is something in localStorage
+      if( db.length > 0){
+           this.listOfContacts = db
+      }else{
+           console.log("localStorage empty")
+      }
+
       this.displayContactTable("contacts")
 
     }
